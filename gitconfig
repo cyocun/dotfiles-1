@@ -1,0 +1,37 @@
+[user]
+	name = ahomu
+	email = mail@ayumusato.com
+
+[core]
+	quotepath = false
+	excludesfile = /Users/ayumusato/.gitignore
+
+[alias]
+# pretty graph -> http://d.hatena.ne.jp/sugyan/20111103/1320247493
+	tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+# back correct
+	bc = commit --amend -m
+# untracked files
+	ut = git ls-files -o --exclude-from=.gitignore
+# stash
+	s  = stash
+	sa = stash apply
+# branch
+	br = branch
+# copy branch and checkout
+	cp = checkout -b
+	cd = checkout
+# merge not fast-foward
+  	comb = merge --no-ff
+# merge squash
+	sq = merge --squash
+# soft reset
+	back = reset --soft HEAD^
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[mergetool]
+	keepBackup = true
