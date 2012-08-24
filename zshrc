@@ -74,6 +74,8 @@ setopt noautoremoveslash
 #
 setopt nolistbeep
 
+# report time varbose
+REPORTTIME=3
 
 # historical backward/forward search with linehead string binded to ^P/^N
 #
