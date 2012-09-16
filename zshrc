@@ -26,8 +26,15 @@ if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 ## nvm
 if [[ -s $HOME/.nvm/nvm.sh ]] ; then source $HOME/.nvm/nvm.sh ; fi
 
+## svm
+export SCALA_HOME=~/.svm/current/rt
+export PATH=$SCALA_HOME/bin:$PATH
+
 ## node_modules
 export PATH=$PATH:$HOME/node_modules/.bin
+
+## mine scripts
+export PATH=$PATH:$HOME/Dropbox/Toolkit/scripts
 
 ## Default shell configuration
 #
