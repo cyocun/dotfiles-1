@@ -34,7 +34,7 @@ export PATH=$SCALA_HOME/bin:$PATH
 export PATH=$PATH:$HOME/node_modules/.bin
 
 ## mine scripts
-export PATH=$PATH:$HOME/Dropbox/Toolkit/scripts
+export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
 
 ## Default shell configuration
 #
