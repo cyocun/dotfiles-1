@@ -30,6 +30,9 @@ if [[ -s $HOME/.nvm/nvm.sh ]] ; then source $HOME/.nvm/nvm.sh ; fi
 export SCALA_HOME=~/.svm/current/rt
 export PATH=$SCALA_HOME/bin:$PATH
 
+## play2 framework
+export PATH=$PATH:$HOME/lib/play-2.0.3
+
 ## node_modules
 export PATH=$PATH:$HOME/node_modules/.bin
 
