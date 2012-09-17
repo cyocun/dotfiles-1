@@ -38,6 +38,10 @@
 (set-buffer-file-coding-system 'utf-8)
 (setq default-buffer-file-coding-system 'utf-8)
 
+;; auto follow synbolic link
+(setq vc-follow-symlinks t)
+(setq auto-revert-check-vc-info t)
+
 ;; Elisp : anything : すごいの ========================
 (require 'anything-startup)
 (global-set-key (kbd "C-c f") 'anything-recentf)
@@ -88,8 +92,9 @@
 ;; キーバインド ====================================
 
 ;; シフト + 矢印で範囲選択
-(setq pc-select-selection-keys-only t)
-(pc-selection-mode 1)
+;(setq pc-select-selection-keys-only t)
+;(pc-selection-mode 1)
+(setq shift-select-mode t)
 
 ;; commandキーとoptionキーを入れ替え
 (setq ns-command-modifier (quote meta))
@@ -98,6 +103,8 @@
 ;; Ctrl-H でヘルプを表示させずに Backspace を機能させる
 (load "term/bobcat")
 (when (fboundp 'terminal-init-bobcat) (terminal-init-bobcat))
+
+(keyboard-translate ?\C-? ?\C-h)
 
 ;; バッファ切り替え
 (global-set-key "\M-n" 'next-buffer)
@@ -134,32 +141,32 @@
 ;; 言語対応
 
 ;; PHP ( php-mode )
-(autoload 'php-mode "php-mode")
-(setq auto-mode-alist
-      (cons '("\\.php\\'" . php-mode) auto-mode-alist))
-(setq php-mode-force-pear t)
-(add-hook 'php-mode-hook
-  '(lambda ()
+;(autoload 'php-mode "php-mode")
+;(setq auto-mode-alist
+;      (cons '("\\.php\\'" . php-mode) auto-mode-alist))
+;(setq php-mode-force-pear t)
+;(add-hook 'php-mode-hook
+;  '(lambda ()
 ;     (setq php-manual-path "/Users/AyumuSato/.emacs.d/site-lisp/php-chunked-xhtml/")
-     (setq php-manual-url "http://www.phppro.jp/phpmanual/")))
+;    (setq php-manual-url "http://www.phppro.jp/phpmanual/")))
 
 ;; php-completion.el
 ;; http://tech.kayac.com/archive/php-completion.html
-(add-hook 'php-mode-hook
-         (lambda ()
-             (require 'php-completion)
-             (php-completion-mode t)
-             (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
-             (when (require 'auto-complete nil t)
-             (make-variable-buffer-local 'ac-sources)
-             (add-to-list 'ac-sources 'ac-source-php-completion)
-             (auto-complete-mode t))))
+;(add-hook 'php-mode-hook
+;         (lambda ()
+;             (require 'php-completion)
+;             (php-completion-mode t)
+;             (define-key php-mode-map (kbd "C-o") 'phpcmp-complete)
+;             (when (require 'auto-complete nil t)
+;             (make-variable-buffer-local 'ac-sources)
+;             (add-to-list 'ac-sources 'ac-source-php-completion)
+;             (auto-complete-mode t))))
 
 ;; CSS ( css-mode )
-(autoload 'css-mode "css-mode")
-(setq auto-mode-alist
-      (cons '("\\.css\\'" . css-mode) auto-mode-alist))
-(setq cssm-indent-function #'cssm-c-style-indenter)
+;(autoload 'css-mode "css-mode")
+;(setq auto-mode-alist
+;      (cons '("\\.css\\'" . css-mode) auto-mode-alist))
+;(setq cssm-indent-function #'cssm-c-style-indenter)
 
 ;; JS ( js2-mode )
 (autoload 'js2-mode "js2-mode" nil t)
