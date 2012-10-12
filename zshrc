@@ -30,6 +30,9 @@ if [[ -s $HOME/.nvm/nvm.sh ]] ; then source $HOME/.nvm/nvm.sh ; fi
 export SCALA_HOME=~/.svm/current/rt
 export PATH=$SCALA_HOME/bin:$PATH
 
+## android-sdk
+export PATH=$PATH:/Applications/android-sdk-macosx/platform-tools
+
 ## play2 framework
 export PATH=$PATH:$HOME/lib/play-2.0.3
 
@@ -147,6 +150,7 @@ extract () {
 #
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
+alias lisls='lsof -i | grep LISTEN'
 alias ex='extract'
 alias where="command -v"
 alias j="jobs -l"
@@ -155,6 +159,8 @@ alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\
 
 alias la="ls -a"
 alias lla="ls -lA"
+
+#alias lgrunt="./node_modules/grunt/bin/grunt $ARGV[0]"
 
 case "${OSTYPE}" in
 freebsd*|darwin*)

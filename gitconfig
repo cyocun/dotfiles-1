@@ -35,3 +35,7 @@
 	trustExitCode = true
 [mergetool]
 	keepBackup = true
+[browse-remote "github.com"]
+	top = https://{host}/{path}
+	ref = https://{host}/{path}/tree/{short_ref}
+	rev = https://{host}/{path}/commit/{commit}
