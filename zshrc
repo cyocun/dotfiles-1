@@ -37,7 +37,7 @@ export PATH=$PATH:/Applications/android-sdk-macosx/platform-tools
 export PATH=$PATH:$HOME/lib/play-2.0.3
 
 ## node_modules
-export PATH=$PATH:$HOME/node_modules/.bin
+# export PATH=$PATH:$HOME/node_modules/.bin
 
 ## mine scripts
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
@@ -92,23 +92,23 @@ REPORTTIME=3
 
 # historical backward/forward search with linehead string binded to ^P/^N
 #
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
+# autoload history-search-end
+# zle -N history-beginning-search-backward-end history-search-end
+# zle -N history-beginning-search-forward-end history-search-end
+# bindkey "^p" history-beginning-search-backward-end
+# bindkey "^n" history-beginning-search-forward-end
 bindkey "^r" zaw-history
-bindkey "^t" zaw-dirstack
-
+bindkey "^t" zaw-cdr
+bindkey "^g" zaw-git-branches
 
 ## Command history configuration
 #
 HISTFILE=${HOME}/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
-
+setopt HIST_IGNORE_DUPS     # ignore duplication command history list
+setopt SHARE_HISTORY        # share command history data
+     
 
 ## Completion configuration
 #
@@ -159,6 +159,11 @@ alias where="command -v"
 alias j="jobs -l"
 alias rmdot="find . -name '.DS_Store' -print -exec rm -r {} ';' ; find . -name ._* -e"
 alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\"匹\");sleep 1}"'
+alias run=bgrun
+
+function bgrun() {
+  $* >/dev/null 2>&1 &
+}
 
 # sudo easy_install Pygments
 alias c='pygmentize -O style=monokai -f console256 -g'
@@ -225,28 +230,38 @@ precmd () {
 }
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
+## Recently arrived directories
+#
+# http://shibayu36.hatenablog.com/entry/20120130/1327937835
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 5000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
+
 ## like anything.el
 #
 # http://u7fa9.org/memo/HEAD/archives/2011-02/2011-02-22_1.rst
 #
-source ~/.zsh/plugin/zaw/zaw.zsh
+source ~/.zsh/zaw/zaw.zsh
+zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
 
 ## Directory stack select
 #
 # http://d.hatena.ne.jp/hchbaw/20110224/zawzsh
 #
-zmodload zsh/parameter
-function zaw-src-dirstack() {
-    : ${(A)candidates::=$dirstack}
-    actions=("zaw-callback-execute" "zaw-callback-replace-buffer" "zaw-callback-append-to-buffer")
-    act_descriptions=("execute" "replace edit buffer" "append to edit buffer")
-}
-zaw-register-src -n dirstack zaw-src-dirstack
+# zmodload zsh/parameter
+# function zaw-src-dirstack() {
+#     : ${(A)candidates::=$dirstack}
+#     actions=("zaw-callback-execute" "zaw-callback-replace-buffer" "zaw-callback-append-to-buffer")
+#     act_descriptions=("execute" "replace edit buffer" "append to edit buffer")
+# }
+# zaw-register-src -n dirstack zaw-src-dirstack
 
 ## Incremental completion
 #
 # http://mimosa-pudica.net/zsh-incremental.html
 #
-source ~/.zsh/plugin/incr*.zsh
+source ~/.zsh/incr*.zsh
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
