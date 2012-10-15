@@ -143,6 +143,9 @@ extract () {
   fi
 }
 
+## LESS
+export LESS='-R'
+export LESSOPEN='|lessfilter %s'
 
 ## Alias configuration
 #
@@ -157,10 +160,11 @@ alias j="jobs -l"
 alias rmdot="find . -name '.DS_Store' -print -exec rm -r {} ';' ; find . -name ._* -e"
 alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\"匹\");sleep 1}"'
 
+# sudo easy_install Pygments
+alias c='pygmentize -O style=monokai -f console256 -g'
+
 alias la="ls -a"
 alias lla="ls -lA"
-
-#alias lgrunt="./node_modules/grunt/bin/grunt $ARGV[0]"
 
 case "${OSTYPE}" in
 freebsd*|darwin*)
