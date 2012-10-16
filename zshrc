@@ -100,6 +100,7 @@ REPORTTIME=3
 bindkey "^r" zaw-history
 bindkey "^t" zaw-cdr
 bindkey "^g" zaw-git-branches
+bindkey "^a" zaw-ack
 
 ## Command history configuration
 #
