@@ -23,3 +23,4 @@ brew install tree
 brew install pstree
 brew install phantomjs
 brew install closure-compiler
+brew install imagesnap

@@ -2,13 +2,24 @@
 	name = ahomu
 	email = mail@ayumusato.com
 
+[init]
+	templatedir = ~/.git_template
+
 [core]
 	quotepath = false
 	excludesfile = ~/.gitignore
 
+[format]
+	pretty="%h %s (%an)"
+
 [alias]
 # pretty graph -> http://d.hatena.ne.jp/sugyan/20111103/1320247493
 	tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
+# log
+# -> Aliases - Git SCM Wiki https://git.wiki.kernel.org/index.php/Aliases
+# -> Git http://git-scm.com/book/ja/Git-%E3%81%AE%E5%9F%BA%E6%9C%AC-%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88%E5%B1%A5%E6%AD%B4%E3%81%AE%E9%96%B2%E8%A6%A7
+	since =!sh -c 'git log --since=$0'
+	nippo = log --since=yesterday --author=ahomu --pretty=format:'- %s'
 # back correct
 	bc = commit --amend -m
 # untracked files
