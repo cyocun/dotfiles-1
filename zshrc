@@ -154,6 +154,7 @@ export LESSOPEN='|lessfilter %s'
 #
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
+alias o='subl'
 alias lisls='lsof -i | grep LISTEN'
 alias ex='extract'
 alias where="command -v"
