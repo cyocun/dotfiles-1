@@ -5,15 +5,11 @@
 ;; GUIセッティング ========================================
 
 ;;Color
-(if window-system (progn
-   (set-background-color "Black")
-   (set-foreground-color "LightGray")
-   (set-cursor-color "Gray")
-   (set-frame-parameter nil 'alpha 90)
-   ))
-
 (set-default-font "ricty-13.5:spacing=0")
 (add-to-list 'default-frame-alist '(font . "ricty-13.5"))
+
+(add-to-list 'custom-theme-load-path "~/.emacs.d/site-lisp/themes/")
+(load-theme 'monokai t)
 
 ;; 基本設定 ========================================
 
@@ -71,6 +67,8 @@
 (add-hook 'html-mode-hook 'jaspace-mode)
 (add-hook 'sgml-mode-hook 'jaspace-mode)
 (add-hook 'text-mode-hook 'jaspace-mode)
+(add-hook 'stylus-mode-hook 'jaspace-mode)
+(add-hook 'css-mode-hook 'jaspace-mode)
 (add-hook 'tt-mode-hook 'jaspace-mode)
 
 ;; ELisp : auto-complete  ========================
@@ -166,3 +164,6 @@
 ;; ruby-electric
 (require 'ruby-electric)
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+
+;; Styles ( stylus-mode )
+ (require 'stylus-mode)
