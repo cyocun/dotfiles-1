@@ -166,4 +166,5 @@
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
 
 ;; Styles ( stylus-mode )
- (require 'stylus-mode)
+(require 'stylus-mode)
+(add-to-list 'auto-mode-alist '("\\.styl$" . stylus-mode))
