@@ -25,6 +25,7 @@ if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 
 ## nvm
 if [[ -s $HOME/.nvm/nvm.sh ]] ; then source $HOME/.nvm/nvm.sh ; fi
+export NODE_PATH=${NVM_PATH}_modules
 
 ## svm
 export SCALA_HOME=~/.svm/current/rt
