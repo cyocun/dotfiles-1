@@ -9,7 +9,7 @@
 (add-to-list 'default-frame-alist '(font . "ricty-13.5"))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/site-lisp/themes/")
-(load-theme 'monokai t)
+(load-theme 'base16-default t)
 
 ;; 基本設定 ========================================
 
