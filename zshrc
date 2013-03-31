@@ -31,14 +31,20 @@ export NODE_PATH=${NVM_PATH}_modules
 export SCALA_HOME=~/.svm/current/rt
 export PATH=$SCALA_HOME/bin:$PATH
 
+## JavaVM
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
+export PATH=$JAVA_HOME/bin:$PATH 
+
 ## android-sdk
-export PATH=$PATH:/Applications/android-sdk-macosx/platform-tools
+export ANDROID_SDK=/Applications/android-sdk-macosx
+export ANDROID_SDK_HOME=/Applications/android-sdk-macosx
+export PATH=$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH
+
+### Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
 
 ## play2 framework
-export PATH=$PATH:$HOME/lib/play-2.0.3
-
-## node_modules
-# export PATH=$PATH:$HOME/node_modules/.bin
+#export PATH=$HOME/lib/play-2.0.3:$PATH
 
 ## mine scripts
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
@@ -164,6 +170,7 @@ alias j="jobs -l"
 alias rmdot="find . -name '.DS_Store' -print -exec rm -r {} ';' ; find . -name ._* -e"
 alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\"匹\");sleep 1}"'
 alias run=bgrun
+alias chromedev="adb forward tcp:9222 localabstract:chrome_devtools_remote"
 
 function bgrun() {
   $* >/dev/null 2>&1 &
