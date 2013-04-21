@@ -13,6 +13,8 @@
 	pretty="%h %s (%an)"
 
 [alias]
+# cancel -> http://d.hatena.ne.jp/thinca/20120924/1348491052
+	cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
 # pretty graph -> http://d.hatena.ne.jp/sugyan/20111103/1320247493
 	tr = log --graph --pretty='format:%C(yellow)%h%Creset %s %Cgreen(%an)%Creset %Cred%d%Creset'
 # log
