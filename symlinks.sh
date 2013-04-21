@@ -11,4 +11,6 @@ ln -s $CURRENT/tmux.conf ~/.tmux.conf
 ln -s $CURRENT/gitconfig ~/.gitconfig
 ln -s $CURRENT/gitignore ~/.gitignore
 ln -s $CURRENT/emacs.d ~/.emacs.d
+ln -s $CURRENT/tmuxinator ~/.tmuxinator
+
 #ln -s $CURRENT/ssh_config ~/.ssh/config
