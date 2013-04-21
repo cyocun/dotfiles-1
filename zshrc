@@ -46,8 +46,9 @@ export PATH="/usr/local/heroku/bin:$PATH"
 ## play2 framework
 #export PATH=$HOME/lib/play-2.0.3:$PATH
 
-## mine scripts
+## mine scripts & depot_tools
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
+export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/depot_tools
 
 ## Default shell configuration
 #
