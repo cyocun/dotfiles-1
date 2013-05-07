@@ -176,9 +176,22 @@ alias rmdot="find . -name '.DS_Store' -print -exec rm -r {} ';' ; find . -name .
 alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\"匹\");sleep 1}"'
 alias run=bgrun
 alias chromedev="adb forward tcp:9222 localabstract:chrome_devtools_remote"
+alias trygz=trygz
 
 function bgrun() {
   $* >/dev/null 2>&1 &
+}
+
+# nginx HttpGzipModule `gzip_comp_level` default = 1
+function trygz() {
+    local origsize;
+    local gzipsize;
+    local ratio;
+    origsize=`wc -c < "$1"`;
+    gzipsize=`gzip -1 -c "$1" | wc -c`;
+    ratio=`echo "$gzipsize * 100/ $origsize" | bc -l`;
+    printf "orig: %d bytes\n" $origsize;
+    printf "gzip: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
 }
 
 # sudo easy_install Pygments
