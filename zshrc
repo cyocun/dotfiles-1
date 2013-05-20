@@ -187,11 +187,25 @@ function trygz() {
     local origsize;
     local gzipsize;
     local ratio;
+
     origsize=`wc -c < "$1"`;
+    printf "orig: %d bytes\n" $origsize;
+
     gzipsize=`gzip -1 -c "$1" | wc -c`;
     ratio=`echo "$gzipsize * 100/ $origsize" | bc -l`;
-    printf "orig: %d bytes\n" $origsize;
-    printf "gzip: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
+    printf "gzip1: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
+
+    gzipsize=`gzip -3 -c "$1" | wc -c`;
+    ratio=`echo "$gzipsize * 100/ $origsize" | bc -l`;
+    printf "gzip3: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
+
+    gzipsize=`gzip -6 -c "$1" | wc -c`;
+    ratio=`echo "$gzipsize * 100/ $origsize" | bc -l`;
+    printf "gzip6: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
+
+    gzipsize=`gzip -9 -c "$1" | wc -c`;
+    ratio=`echo "$gzipsize * 100/ $origsize" | bc -l`;
+    printf "gzip9: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
 }
 
 # sudo easy_install Pygments
