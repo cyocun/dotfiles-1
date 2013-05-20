@@ -3,6 +3,7 @@
 .DS_Store
 .idea/
 *.orig
+*.iml
 node_modules/
 *.sublime-project
 *.sublime-workspace
