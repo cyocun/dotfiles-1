@@ -61,12 +61,12 @@ autoload colors
 colors
 case ${UID} in
 0)
-    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[red]}%}%/#%{${reset_color}%}%b "
+    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[red]}%}%~#%{${reset_color}%}%b "
     PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
     SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
     ;;
 *)
-    PROMPT="%{${fg[red]}%}%/
+    PROMPT="%{${fg[red]}%}%~
 %%%{${reset_color}%} "
     PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
     SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
@@ -117,18 +117,16 @@ bindkey "^a" zaw-ack
 ## Command history configuration
 #
 HISTFILE=${HOME}/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=5000
+SAVEHIST=5000
 setopt HIST_IGNORE_DUPS     # ignore duplication command history list
 setopt SHARE_HISTORY        # share command history data
-     
 
 ## Completion configuration
 #
-#fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-#autoload -U compinit
-#compinit
-
+fpath=(${HOME}/.zsh/functions/Completion ${fpath})
+autoload -U compinit
+compinit
 
 ## Extract archives
 #
@@ -166,6 +164,7 @@ export LESSOPEN='|lessfilter %s'
 #
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
+alias jenkins='java -jar /usr/local/opt/jenkins/libexec/jenkins.war'
 alias t='touch'
 alias o='subl'
 alias lisls='lsof -i | grep LISTEN'
@@ -177,6 +176,7 @@ alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\
 alias run=bgrun
 alias chromedev="adb forward tcp:9222 localabstract:chrome_devtools_remote"
 alias trygz=trygz
+alias avd233="emulator -avd 2.3.3 -partition-size 1024 -no-snapshot &"
 
 function bgrun() {
   $* >/dev/null 2>&1 &
@@ -289,22 +289,58 @@ zstyle ':completion:*' recent-dirs-insert both
 source ~/.zsh/zaw/zaw.zsh
 zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
 
-## Directory stack select
-#
-# http://d.hatena.ne.jp/hchbaw/20110224/zawzsh
-#
-# zmodload zsh/parameter
-# function zaw-src-dirstack() {
-#     : ${(A)candidates::=$dirstack}
-#     actions=("zaw-callback-execute" "zaw-callback-replace-buffer" "zaw-callback-append-to-buffer")
-#     act_descriptions=("execute" "replace edit buffer" "append to edit buffer")
-# }
-# zaw-register-src -n dirstack zaw-src-dirstack
-
-## Incremental completion
-#
-# http://mimosa-pudica.net/zsh-incremental.html
-#
-source ~/.zsh/incr*.zsh
-
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
+COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
+export COMP_WORDBREAKS
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###
