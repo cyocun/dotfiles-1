@@ -43,11 +43,6 @@ export ANDROID_SDK=/Applications/android-sdk-macosx
 export ANDROID_SDK_HOME=/Applications/android-sdk-macosx
 export PATH=$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH
 
-### Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-## play2 framework
-#export PATH=$HOME/lib/play-2.0.3:$PATH
 ## Go
 export GOPATH=$HOME/gopath
 
@@ -347,3 +342,6 @@ elif type compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
