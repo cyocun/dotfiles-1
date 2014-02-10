@@ -23,16 +23,16 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
 ## tmuxinator
 if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
 
-## rvm
-if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
-
-## nvm
-if [[ -s $HOME/.nvm/nvm.sh ]] ; then source $HOME/.nvm/nvm.sh ; fi
-export NODE_PATH=${NVM_PATH}_modules
-
-## svm
-export SCALA_HOME=~/.svm/current/rt
-export PATH=$SCALA_HOME/bin:$PATH
+## anyenv
+## http://qiita.com/luckypool/items/f1e756e9d3e9786ad9ea
+if [ -d ${HOME}/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    for D in `find $HOME/.anyenv/envs -type d -d 1`
+    do
+        export PATH="$D/shims:$PATH"
+    done
+fi
 
 ## JavaVM
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
@@ -286,8 +286,6 @@ zstyle ':completion:*' recent-dirs-insert both
 #
 source ~/.zsh/zaw/zaw.zsh
 zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ###-begin-npm-completion-###
 #

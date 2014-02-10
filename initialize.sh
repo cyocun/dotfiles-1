@@ -3,11 +3,9 @@ cd ~/
 # brew
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 
-# rvm
-curl -L https://get.rvm.io | bash -s stable --ruby
-
-# nvm
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+# anyenv
+anyenv install rbenv
+anyenv install ndenv
 
 # from Homebrew
 brew install ack
