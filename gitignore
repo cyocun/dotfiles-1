@@ -1,9 +1,10 @@
 #git config --global --add core.excludesfile "$HOME/.gitignore" 
 
 .DS_Store
-.idea/
+.idea
+.sass-cache
 *.orig
 *.iml
-node_modules/
+node_modules
 *.sublime-project
 *.sublime-workspace
