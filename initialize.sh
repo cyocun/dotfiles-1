@@ -23,6 +23,7 @@ brew install casperjs
 brew install closure-compiler
 brew install imagesnap
 brew install python
+brew install go
 
 # from gem
 gem install tmuxinator

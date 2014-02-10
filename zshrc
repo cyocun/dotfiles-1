@@ -48,6 +48,8 @@ export PATH="/usr/local/heroku/bin:$PATH"
 
 ## play2 framework
 #export PATH=$HOME/lib/play-2.0.3:$PATH
+## Go
+export GOPATH=$HOME/gopath
 
 ## mine scripts & depot_tools
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
