@@ -17,8 +17,8 @@ esac
 ## Set Default Editor
 export EDITOR=emacs
 
-## homebrew(usr/local/bin) prior
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin
+## homebrew
+export PATH=/usr/local/bin:$PATH
 
 ## tmuxinator
 if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
@@ -36,7 +36,7 @@ fi
 
 ## JavaVM
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
-export PATH=$JAVA_HOME/bin:$PATH 
+export PATH=$JAVA_HOME/bin:$PATH
 
 ## android-sdk
 export ANDROID_SDK=/Applications/android-sdk-macosx
@@ -44,7 +44,8 @@ export ANDROID_SDK_HOME=/Applications/android-sdk-macosx
 export PATH=$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH
 
 ## Go
-export GOPATH=$HOME/gopath
+export GOPATH=$HOME/.golib
+export PATH=$GOPATH/bin:$PATH
 
 ## mine scripts & depot_tools
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
@@ -80,7 +81,6 @@ setopt auto_cd
 # auto directory pushd that you can get dirs list by cd -[tab]
 #
 setopt auto_pushd
-
 setopt pushd_ignore_dups
 
 # compacked complete list display
@@ -99,18 +99,6 @@ setopt nolistbeep
 
 # report time varbose
 REPORTTIME=3
-
-# historical backward/forward search with linehead string binded to ^P/^N
-#
-# autoload history-search-end
-# zle -N history-beginning-search-backward-end history-search-end
-# zle -N history-beginning-search-forward-end history-search-end
-# bindkey "^p" history-beginning-search-backward-end
-# bindkey "^n" history-beginning-search-forward-end
-bindkey "^r" zaw-history
-bindkey "^t" zaw-cdr
-bindkey "^g" zaw-git-branches
-bindkey "^a" zaw-ack
 
 ## Command history configuration
 #
@@ -286,6 +274,11 @@ zstyle ':completion:*' recent-dirs-insert both
 #
 source ~/.zsh/zaw/zaw.zsh
 zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
+
+bindkey "^r" zaw-history
+bindkey "^t" zaw-cdr
+bindkey "^g" zaw-git-branches
+bindkey "^a" zaw-ack
 
 ###-begin-npm-completion-###
 #
