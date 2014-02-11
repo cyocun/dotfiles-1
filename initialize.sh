@@ -25,7 +25,7 @@ brew install python
 brew install go
 
 # from gem
-gem install tmuxinator
+gem install tmuxinator -v 0.6.6
 gem install chef
 gem install knife-solo
 gem install berkshelf
