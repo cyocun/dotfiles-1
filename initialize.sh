@@ -4,6 +4,7 @@ cd ~/
 ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 
 # anyenv
+git clone https://github.com/riywo/anyenv ~/.anyenv
 anyenv install rbenv
 anyenv install ndenv
 
