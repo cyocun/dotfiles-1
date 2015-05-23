@@ -15,16 +15,24 @@ case ${UID} in
 esac
 
 ## Set Default Editor
+#
 export EDITOR=emacs
 
+## Set Emacs key binding
+#
+bindkey -e
+
 ## homebrew
+#
 export PATH=/usr/local/bin:$PATH
 
 ## tmuxinator
+#
 if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] ; then source $HOME/.tmuxinator/scripts/tmuxinator ; fi
 
 ## anyenv
-## http://qiita.com/luckypool/items/f1e756e9d3e9786ad9ea
+# http://qiita.com/luckypool/items/f1e756e9d3e9786ad9ea
+#
 if [ -d ${HOME}/.anyenv ] ; then
     export PATH="$HOME/.anyenv/bin:$PATH"
     eval "$(anyenv init -)"
@@ -35,21 +43,32 @@ if [ -d ${HOME}/.anyenv ] ; then
 fi
 
 ## JavaVM
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
+#
+export JAVA_HOME="$(/usr/libexec/java_home)"
 export PATH=$JAVA_HOME/bin:$PATH
 
 ## android-sdk
+#
 export ANDROID_SDK=/Applications/android-sdk-macosx
-export ANDROID_SDK_HOME=/Applications/android-sdk-macosx
-export PATH=$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools:$PATH
+export ANDROID_SDK_HOME=$ANDROID_SDK
+export PATH=$PATH:$ANDROID_SDK/platform-tools:$ANDROID_SDK/tools
 
 ## Go
-export GOPATH=$HOME/.golib
+export GOPATH=$HOME/Documents/GOLIB
 export PATH=$GOPATH/bin:$PATH
 
-## mine scripts & depot_tools
+## Haskell
+#
+export PATH="$HOME/Library/Haskell/bin:$PATH"
+
+## myscripts & depot_tools
+#
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/depot_tools
+
+## docker
+#
+export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
 
 ## Default shell configuration
 #
@@ -77,7 +96,6 @@ esac
 #
 setopt auto_cd
 
-
 # auto directory pushd that you can get dirs list by cd -[tab]
 #
 setopt auto_pushd
@@ -87,11 +105,9 @@ setopt pushd_ignore_dups
 #
 setopt list_packed
 
-
 # no remove postfix slash of command line
 #
 setopt noautoremoveslash
-
 
 # no beep sound when complete list displayed
 #
@@ -124,17 +140,10 @@ zstyle ':completion:*' recent-dirs-insert both
 fpath=($HOME/.zsh/anyframe(N-/) $fpath)
 autoload -Uz anyframe-init
 anyframe-init
-
 bindkey '^t' anyframe-widget-cdr
 bindkey '^g' anyframe-widget-checkout-git-branch
 bindkey '^r' anyframe-widget-execute-history
 bindkey '^f' anyframe-widget-insert-filename
-
-# ## Completion configuration
-# #
-# fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-# autoload -U compinit
-# compinit
 
 ## Extract archives
 #
@@ -173,26 +182,28 @@ export LESSOPEN='|lessfilter %s'
 #
 setopt complete_aliases     # aliased ls needs if file/dir completions work
 
-alias jenkins='java -jar /usr/local/opt/jenkins/libexec/jenkins.war'
 alias t='touch'
-alias o='subl'
 alias lisls='lsof -i | grep LISTEN'
 alias ex='extract'
 alias where="command -v"
-alias j="jobs -l"
 alias rmdot="find . -name '.DS_Store' -print -exec rm -r {} ';' ; find . -name ._* -e"
-alias sheep='ruby -e "(1..10000).map{|n| system(\"say -v Kyoko 羊が\"+n.to_s+\"匹\");sleep 1}"'
-alias run=bgrun
-alias chromedev="adb forward tcp:9222 localabstract:chrome_devtools_remote"
 alias trygz=trygz
-alias avd233="emulator -avd 2.3.3 -partition-size 1024 -no-snapshot &"
+alias c='pygmentize -O style=monokai -f console256 -g'
+alias la="ls -a"
+alias lla="ls -lA"
 
-function bgrun() {
-  $* >/dev/null 2>&1 &
-}
+case "${OSTYPE}" in
+freebsd*|darwin*)
+    alias ls="ls -G -w"
+    ;;
+linux*)
+    alias ls="ls --color"
+    ;;
+esac
 
 # nginx HttpGzipModule `gzip_comp_level` default = 1
-function trygz() {
+#
+trygz () {
     local origsize;
     local gzipsize;
     local ratio;
@@ -216,57 +227,6 @@ function trygz() {
     ratio=`echo "$gzipsize * 100/ $origsize" | bc -l`;
     printf "gzip9: %d bytes (%2.2f%%)\n" $gzipsize $ratio;
 }
-
-# sudo easy_install Pygments
-alias c='pygmentize -O style=monokai -f console256 -g'
-
-alias la="ls -a"
-alias lla="ls -lA"
-
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    alias ls="ls -G -w"
-    ;;
-linux*)
-    alias ls="ls --color"
-    ;;
-esac
-
-## terminal configuration
-#
-case "${TERM}" in
-screen)
-    TERM=xterm
-    ;;
-esac
-
-case "${TERM}" in
-xterm|xterm-color)
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-    ;;
-kterm-color)
-    stty erase '^H'
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-    ;;
-kterm)
-    stty erase '^H'
-    ;;
-cons25)
-    unset LANG
-    export LSCOLORS=ExFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
-jfbterm-color)
-    export LSCOLORS=gxFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
-esac
 
 ## show vcs branch name
 #
