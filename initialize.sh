@@ -23,6 +23,7 @@ brew install closure-compiler
 brew install imagesnap
 brew install python
 brew install go
+brew install peco
 
 # from gem
 gem install tmuxinator -v 0.6.6

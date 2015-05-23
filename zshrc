@@ -98,21 +98,43 @@ setopt noautoremoveslash
 setopt nolistbeep
 
 # report time varbose
+#
 REPORTTIME=3
 
 ## Command history configuration
 #
 HISTFILE=${HOME}/.zsh_history
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=1000
+SAVEHIST=1000
 setopt HIST_IGNORE_DUPS     # ignore duplication command history list
 setopt SHARE_HISTORY        # share command history data
 
-## Completion configuration
+## Directry history configuration
 #
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-autoload -U compinit
-compinit
+# http://shibayu36.hatenablog.com/entry/20120130/1327937835
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 1000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
+
+## anyframe for peco
+# git clone git@github.com:mollifier/anyframe.git
+#
+fpath=($HOME/.zsh/anyframe(N-/) $fpath)
+autoload -Uz anyframe-init
+anyframe-init
+
+bindkey '^t' anyframe-widget-cdr
+bindkey '^g' anyframe-widget-checkout-git-branch
+bindkey '^r' anyframe-widget-execute-history
+bindkey '^f' anyframe-widget-insert-filename
+
+# ## Completion configuration
+# #
+# fpath=(${HOME}/.zsh/functions/Completion ${fpath})
+# autoload -U compinit
+# compinit
 
 ## Extract archives
 #
@@ -141,6 +163,7 @@ extract () {
 }
 
 ## LESS
+#
 export LESS='-R'
 export LESSOPEN='|lessfilter %s'
 
@@ -259,27 +282,6 @@ precmd () {
 }
 RPROMPT="%1(v|%F{green}%1v%f|)"
 
-## Recently arrived directories
-#
-# http://shibayu36.hatenablog.com/entry/20120130/1327937835
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':chpwd:*' recent-dirs-max 5000
-zstyle ':chpwd:*' recent-dirs-default yes
-zstyle ':completion:*' recent-dirs-insert both
-
-## like anything.el
-#
-# http://u7fa9.org/memo/HEAD/archives/2011-02/2011-02-22_1.rst
-#
-source ~/.zsh/zaw/zaw.zsh
-zstyle ':filter-select' case-insensitive yes # 絞り込みをcase-insensitiveに
-
-bindkey "^r" zaw-history
-bindkey "^t" zaw-cdr
-bindkey "^g" zaw-git-branches
-bindkey "^a" zaw-ack
-
 ###-begin-npm-completion-###
 #
 # npm command completion script
@@ -287,7 +289,7 @@ bindkey "^a" zaw-ack
 # Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
 # Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
 #
-
+# 
 COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
 COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
 export COMP_WORDBREAKS
