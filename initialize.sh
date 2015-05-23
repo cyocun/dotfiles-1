@@ -17,21 +17,18 @@ brew install hub
 brew install wget
 brew install tree
 brew install pstree
-brew install phantomjs
-brew install casperjs
-brew install closure-compiler
-brew install imagesnap
 brew install python
 brew install go
+brew install ec2-api-tools
+brew install aws-elasticbeanstalk
 brew install peco
+brew install flow
+brew install ffmpeg
 
 # from gem
 gem install tmuxinator -v 0.6.6
-gem install chef
-gem install knife-solo
-gem install berkshelf
 
 # from pip
 pip install --upgrade distribute
 pip install pygments
-pup install ansible
+pup install awscli
