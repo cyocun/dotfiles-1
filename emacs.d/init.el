@@ -44,12 +44,6 @@
 (global-set-key (kbd "M-y") 'anything-show-kill-ring) 
 (global-set-key (kbd "C-x b") 'anything-for-files) 
 
-;; Elisp : auto-install : オートインストール ========================
-;(require 'auto-install)
-;(setq auto-install-directory "~/.emacs.d/auto-install/")
-;(auto-install-update-emacswiki-package-name t)
-;(auto-install-compatibility-setup)
-
 ;; Elisp : jaspace : 全角空白を表示させる ========================
 (require 'jaspace)
 (setq jaspace-alternate-jaspace-string "□") ;; 全角空白を表示させる
@@ -114,22 +108,6 @@
 (global-set-key (kbd "C-/")     'undo)
 
 ;; 拡張機能 ========================================
-
-;; redo+
-(require 'redo+)
-(global-set-key (kbd "C-M-/") 'redo)
-(setq undo-no-redo t)
-(setq undo-limit 600000)
-(setq undo-strong-limit 900000)
-
-;; ElScreen
-;(setq elscreen-prefix-key "\C-z")
-;(setq elscreen-display-tab t)
-;(load "elscreen")
-;(global-set-key "\M-t" 'elscreen-create)
-;(global-set-key "\M-T" 'elscreen-clone)
-;(global-set-key "\M-}" 'elscreen-next)
-;(global-set-key "\M-{" 'elscreen-previous)
 
 ;; Align
 (require 'align)

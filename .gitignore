@@ -3,4 +3,4 @@ emacs.d/anything-c-adaptive-history
 emacs.d/auto-save-list/
 emacs.d/site-lisp/
 ssh_config
-scripts
+tmuxinator
