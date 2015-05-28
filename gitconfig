@@ -2,9 +2,6 @@
 	name = ahomu
 	email = mail@ayumusato.com
 
-[init]
-	templatedir = ~/.git_template
-
 [core]
 	quotepath = false
 	excludesfile = ~/.gitignore
