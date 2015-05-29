@@ -66,9 +66,11 @@ export PATH="$HOME/Library/Haskell/bin:$PATH"
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/scripts
 export PATH=$PATH:$HOME/Dropbox/Toolkit/conf/depot_tools
 
-## docker
+## docker 1.6.2
 #
-export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2375
+export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2376
+export DOCKER_CERT_PATH=~/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
 
 ## Default shell configuration
 #
