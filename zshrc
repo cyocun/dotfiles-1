@@ -189,10 +189,10 @@ alias lisls='lsof -i | grep LISTEN'
 alias ex='extract'
 alias where="command -v"
 alias rmdot="find . -name '.DS_Store' -print -exec rm -r {} ';' ; find . -name ._* -e"
-alias trygz=trygz
 alias c='pygmentize -O style=monokai -f console256 -g'
 alias la="ls -a"
 alias lla="ls -lA"
+alias ac="ackpecot"
 
 case "${OSTYPE}" in
 freebsd*|darwin*)
@@ -202,6 +202,12 @@ linux*)
     alias ls="ls --color"
     ;;
 esac
+
+# do ack & incremental filter & open by CotEditor
+#
+function ackpecot () {
+  cot $(ack $@ | peco --query "$LBUFFER" | awk -F : '{print "-l " $2 " " $1}')
+}
 
 # nginx HttpGzipModule `gzip_comp_level` default = 1
 #
